@@ -7,7 +7,8 @@ import { ParameterControls } from './components/ParameterControls';
 import { DischargeCharts } from './components/DischargeCharts';
 import { AiDiagnosticModal } from './components/AiDiagnosticModal';
 import { LatticeSimulator } from './components/LatticeSimulator';
-import { Download, Sparkles, Battery, RefreshCw, Layers, Sliders } from 'lucide-react';
+import { SectorImpactAnalysis } from './components/SectorImpactAnalysis';
+import { Download, Sparkles, Battery, RefreshCw, Layers, Sliders, Globe } from 'lucide-react';
 
 const INITIAL_PARAMS: BatteryParams = {
   ratedCapacityR: 100,
@@ -20,7 +21,7 @@ const INITIAL_PARAMS: BatteryParams = {
 export default function App() {
   const [params, setParams] = useState<BatteryParams>(INITIAL_PARAMS);
   const [isAiModalOpen, setIsAiModalOpen] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<'singleCell' | 'lattice'>('singleCell');
+  const [viewMode, setViewMode] = useState<'singleCell' | 'lattice' | 'sectors'>('singleCell');
 
   const effectivePower = calculateEffectivePower(params);
   const standardPower = calculateStandardPower(params);
@@ -116,6 +117,18 @@ export default function App() {
               <Layers className="w-3.5 h-3.5" />
               <span>ANGELL² × Nr Lattice</span>
             </button>
+
+            <button
+              onClick={() => setViewMode('sectors')}
+              className={`px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                viewMode === 'sectors'
+                  ? 'bg-[#00FF9C] text-[#0A0A0B] font-bold shadow-[0_0_12px_rgba(0,255,156,0.3)]'
+                  : 'text-[#666] hover:text-white'
+              }`}
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span>Global Sector Impact</span>
+            </button>
           </div>
 
           <div className="flex items-center gap-3 flex-wrap">
@@ -147,7 +160,7 @@ export default function App() {
         </header>
 
         {/* View Mode Content */}
-        {viewMode === 'singleCell' ? (
+        {viewMode === 'singleCell' && (
           <>
             {/* Mathematical Model Interactive Display */}
             <FormulaHeader
@@ -174,9 +187,11 @@ export default function App() {
             {/* Dynamic Recharts Performance Curves */}
             <DischargeCharts params={params} />
           </>
-        ) : (
-          <LatticeSimulator />
         )}
+        
+        {viewMode === 'lattice' && <LatticeSimulator />}
+
+        {viewMode === 'sectors' && <SectorImpactAnalysis />}
 
         {/* Footer info */}
         <footer className="flex flex-col sm:flex-row justify-between items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-[#555] pt-6 border-t border-[#1A1A1C] mt-2 font-mono">
