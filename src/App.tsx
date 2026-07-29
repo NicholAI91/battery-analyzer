@@ -181,7 +181,7 @@ export default function App() {
         {/* Footer info */}
         <footer className="flex flex-col sm:flex-row justify-between items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-[#555] pt-6 border-t border-[#1A1A1C] mt-2 font-mono">
           <span>MODEL: P_eff = (C/R)(B - Δc)(-dC/dt) × ANGELL² × Nr</span>
-          <span>HARDWARE ID: LP-9920-X1</span>
+          <span>LICENSE: APACHE 2.0 (© 2026 NICHOLAS REID ANGELL)</span>
           <span>SYSTEM CAPACITY ANALYZER</span>
         </footer>
       </div>
