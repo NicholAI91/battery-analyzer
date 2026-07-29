@@ -1,0 +1,6 @@
+{
+  "name": "Battery Effective Power & SOC Simulator",
+  "description": "State-of-Charge weighted battery working capacity model and dynamic discharge analyzer based on (C/R)(B - Delta c)(-dC/dt).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
