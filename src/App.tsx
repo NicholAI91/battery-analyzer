@@ -8,7 +8,8 @@ import { DischargeCharts } from './components/DischargeCharts';
 import { AiDiagnosticModal } from './components/AiDiagnosticModal';
 import { LatticeSimulator } from './components/LatticeSimulator';
 import { SectorImpactAnalysis } from './components/SectorImpactAnalysis';
-import { Download, Sparkles, Battery, RefreshCw, Layers, Sliders, Globe } from 'lucide-react';
+import { QuantumDissipationModel } from './components/QuantumDissipationModel';
+import { Download, Sparkles, Battery, RefreshCw, Layers, Sliders, Globe, Atom } from 'lucide-react';
 
 const INITIAL_PARAMS: BatteryParams = {
   ratedCapacityR: 100,
@@ -21,7 +22,7 @@ const INITIAL_PARAMS: BatteryParams = {
 export default function App() {
   const [params, setParams] = useState<BatteryParams>(INITIAL_PARAMS);
   const [isAiModalOpen, setIsAiModalOpen] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<'singleCell' | 'lattice' | 'sectors'>('singleCell');
+  const [viewMode, setViewMode] = useState<'singleCell' | 'lattice' | 'sectors' | 'quantum'>('singleCell');
 
   const effectivePower = calculateEffectivePower(params);
   const standardPower = calculateStandardPower(params);
@@ -129,6 +130,18 @@ export default function App() {
               <Globe className="w-3.5 h-3.5" />
               <span>Global Sector Impact</span>
             </button>
+
+            <button
+              onClick={() => setViewMode('quantum')}
+              className={`px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                viewMode === 'quantum'
+                  ? 'bg-purple-500 text-white font-bold shadow-[0_0_12px_rgba(168,85,247,0.4)]'
+                  : 'text-[#666] hover:text-white'
+              }`}
+            >
+              <Atom className="w-3.5 h-3.5" />
+              <span>Quantum Dissipation</span>
+            </button>
           </div>
 
           <div className="flex items-center gap-3 flex-wrap">
@@ -192,6 +205,8 @@ export default function App() {
         {viewMode === 'lattice' && <LatticeSimulator />}
 
         {viewMode === 'sectors' && <SectorImpactAnalysis />}
+
+        {viewMode === 'quantum' && <QuantumDissipationModel />}
 
         {/* Footer info */}
         <footer className="flex flex-col sm:flex-row justify-between items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-[#555] pt-6 border-t border-[#1A1A1C] mt-2 font-mono">
