@@ -1,0 +1,16 @@
+# 2. Cell Tracking Analysis
+sub_df = pd.read_csv('submission.csv')
+print("Submission CSV Info:")
+print(sub_df.info())
+print(sub_df.head())
+
+xls = pd.ExcelFile('angell_cell_tracking.xlsx')
+print("Excel sheet names:", xls.sheet_names)
+excel_dfs = {sheet: pd.read_excel('angell_cell_tracking.xlsx', sheet_name=sheet) for sheet in xls.sheet_names}
+for name, df in excel_dfs.items():
+    print(f"\nSheet: {name}")
+    print(df.head())
+
+with open('Angell Sieve Applied to 3D+Time Cell Tracking.md', 'r') as f:
+    md_text = f.read()
+print("\nMD file preview:\n", md_text[:500])
