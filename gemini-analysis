@@ -1,0 +1,43 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import docx
+import os
+
+# Set style
+plt.style.use('seaborn-v0_8-whitegrid' if 'seaborn-v0_8-whitegrid' in plt.style.available else 'default')
+
+# 1. Battery Telemetry Analysis & Plotting
+df_bat = pd.read_csv('battery_simulation_telemetry_1787893194128.csv')
+print("Battery Stats:")
+print(df_bat.describe())
+
+fig, axs = plt.subplots(2, 2, figsize=(12, 8))
+
+axs[0, 0].plot(df_bat['Time (Hours)'], df_bat['SOC (%)'], color='blue', linewidth=2)
+axs[0, 0].set_title('State of Charge (SOC) vs Time')
+axs[0, 0].set_xlabel('Time (Hours)')
+axs[0, 0].set_ylabel('SOC (%)')
+
+axs[0, 1].plot(df_bat['Time (Hours)'], df_bat['Effective Power (W)'], color='green', label='Effective Power')
+axs[0, 1].plot(df_bat['Time (Hours)'], df_bat['Standard Power (W)'], color='red', linestyle='--', label='Standard Power')
+axs[0, 1].set_title('Power Output vs Time')
+axs[0, 1].set_xlabel('Time (Hours)')
+axs[0, 1].set_ylabel('Power (W)')
+axs[0, 1].legend()
+
+axs[1, 0].plot(df_bat['Time (Hours)'], df_bat['Cumulative Energy (Wh)'], color='purple', linewidth=2)
+axs[1, 0].set_title('Cumulative Energy Discharge')
+axs[1, 0].set_xlabel('Time (Hours)')
+axs[1, 0].set_ylabel('Energy (Wh)')
+
+axs[1, 1].plot(df_bat['Time (Hours)'], df_bat['Efficiency (%)'], color='orange', linewidth=2)
+axs[1, 1].set_title('Efficiency over Time')
+axs[1, 1].set_xlabel('Time (Hours)')
+axs[1, 1].set_ylabel('Efficiency (%)')
+
+plt.tight_layout()
+plt.savefig('battery_analysis.png', dpi=150)
+plt.close()
+
+print("Battery plot saved as battery_analysis.png")
