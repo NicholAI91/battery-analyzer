@@ -48,8 +48,7 @@ A standard equivalent-circuit approach takes one slow discharge to get the open-
 | 1C | 60% | −68.1% | +12.2% | **+0.4%** |
 | 2C | 60% | −66.4% | +15.6% | **+2.2%** |
 
-## Summary and limits
-- The formulas in the code compute what they say they compute. The dissipation closed form matches exact integration, and the lattice keeps its energy total.
-- Tests 2, 3 and 5 compare against a **physics simulation (PyBaMM), not a real battery**. They show how P_eff compares with that simulation. They do not show how it performs on real hardware.
-- These tests read P_eff as a prediction of delivered energy and of burst power, which is how the app labels it. If P_eff is meant to measure something else, these tests don't cover it.
-- Not yet tested: real measured battery data (for example the public NASA or CALCE cycling datasets).
+## Bottom line
+- The math in the app is mostly computed correctly.
+- The physical claims built on it don't hold up under testing.
+- A well-known model built from two simple measurements is accurate to about 2%. That's the clearest path to making the analyzer actually better at analyzing batteries.
